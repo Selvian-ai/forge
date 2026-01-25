@@ -8,7 +8,7 @@ set -euo pipefail
 ###############################################################################
 
 NODE_NAME="spark"
-NODE_IP="10.10.10.22"  # Update if needed
+NODE_IP="10.10.10.124"
 
 echo "🔧  Adding DGX ${NODE_NAME} to cluster configuration"
 echo ""

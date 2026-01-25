@@ -8,7 +8,7 @@ set -e
 
 # Configuration
 NODE_NAME="spark"
-NODE_IP="10.10.10.22"
+NODE_IP="10.10.10.124"
 GITHUB_REPO="git@github.com:claudiordgz/forge.git"
 GITHUB_KEY_NAME="$NODE_NAME-github"
 
