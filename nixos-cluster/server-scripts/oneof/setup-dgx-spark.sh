@@ -109,7 +109,13 @@ echo "7️⃣  Getting additional keys and setting up SSH access..."
 # Fetch remaining keys from 1Password
 fetch_field() {
     local item="$1" field="$2"
-    op item get "$item" --vault "Machines" --field "$field" --format json --reveal | jq -r '.value'
+    op item get "$item" --vault "Machines" --field "$field" --reveal
+}
+
+fetch_public_key() {
+    local item="$1"
+    # For SSH keys, get the private key and extract the public key from it
+    op item get "$item" --vault "Machines" --field "private key" --reveal | ssh-keygen -y -f /dev/stdin
 }
 
 for KEY_TYPE in adminuser intracom; do
@@ -120,7 +126,7 @@ for KEY_TYPE in adminuser intracom; do
     echo "📥 Fetching ${ITEM_NAME}..."
     fetch_field "$ITEM_NAME" "private key" > "$PRIV_PATH"
     chmod 600 "$PRIV_PATH"
-    fetch_field "$ITEM_NAME" "public key" > "$PUB_PATH"
+    fetch_public_key "$ITEM_NAME" > "$PUB_PATH"
     chmod 644 "$PUB_PATH"
 done
 
@@ -143,7 +149,7 @@ CLUSTER=(vega rigel arcturus)
 for PEER in "${CLUSTER[@]}"; do
     PEER_KEY="${PEER}-intracom"
     echo "📥 Fetching peer key ${PEER_KEY}..."
-    PEER_PUB=$(fetch_field "$PEER_KEY" "public key")
+    PEER_PUB=$(fetch_public_key "$PEER_KEY")
     echo "$PEER_PUB" >> ~/.ssh/authorized_keys
 done
 

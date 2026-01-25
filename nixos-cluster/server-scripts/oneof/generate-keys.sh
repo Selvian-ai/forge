@@ -72,22 +72,17 @@ for KEY_TYPE in adminuser github intracom; do
   },
   "fields": [
     {
+      "id": "notesPlain",
+      "type": "STRING",
+      "purpose": "NOTES",
+      "label": "notesPlain",
+      "value": "Generated SSH key for ${NODE_NAME}"
+    },
+    {
       "id": "private_key",
-      "type": "CONCEALED",
+      "type": "SSHKEY",
       "label": "private key",
       "value": $(echo "$PRIVATE_KEY" | jq -Rs .)
-    },
-    {
-      "id": "public_key",
-      "type": "STRING",
-      "label": "public key",
-      "value": $(echo "$PUBLIC_KEY" | jq -Rs .)
-    },
-    {
-      "id": "fingerprint",
-      "type": "STRING",
-      "label": "fingerprint",
-      "value": "${FINGERPRINT}"
     }
   ]
 }

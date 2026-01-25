@@ -42,7 +42,13 @@ sudo install -d -m 755 "$KEYS_DIR"
 # Helper: fetch a field from an item
 fetch_field () {
   local item="$1" field="$2"
-  op item get "$item" --field "$field" --format json --reveal | jq -r '.value'
+  op item get "$item" --field "$field" --reveal
+}
+
+# Helper: extract public key from private key
+fetch_public_key () {
+  local item="$1"
+  op item get "$item" --field "private key" --reveal | ssh-keygen -y -f /dev/stdin
 }
 
 # ─ 4 – Fetch *this node’s* keys (priv & pub) ────────────────────────────────
@@ -54,7 +60,7 @@ for KEY_TYPE in adminuser github intracom; do
   echo "🔑  Fetching '${ITEM}'…"
   fetch_field "$ITEM" "private key" >"$PRIV_PATH"
   chmod 600 "$PRIV_PATH"
-  fetch_field "$ITEM" "public key"  >"$PUB_PATH"
+  fetch_public_key "$ITEM" >"$PUB_PATH"
   chmod 644 "$PUB_PATH"
 done
 
@@ -64,7 +70,7 @@ for PEER in "${CLUSTER[@]}"; do
   ITEM="${PEER}-intracom"
   PUB_PATH="${KEYS_DIR}/${ITEM}.pub"
   echo "📥  Fetching peer pubkey '${ITEM}'…"
-  fetch_field "$ITEM" "public key" >"$PUB_PATH"
+  fetch_public_key "$ITEM" >"$PUB_PATH"
   chmod 644 "$PUB_PATH"
 done
 
