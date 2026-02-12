@@ -9,7 +9,7 @@ set -e
 # Configuration
 NODE_NAME="spark"
 NODE_IP="10.10.10.124"
-GITHUB_REPO="git@github.com:claudiordgz/forge.git"
+GITHUB_REPO="git@github.com:Selvian-ai/forge.git"
 GITHUB_KEY_NAME="$NODE_NAME-github"
 
 echo "🚀 Setting up DGX node '$NODE_NAME'..."

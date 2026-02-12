@@ -7,7 +7,7 @@ set -e
 
 # Configuration
 NODE_NAME="${1:-}"
-GITHUB_REPO="git@github.com:claudiordgz/forge.git"
+GITHUB_REPO="git@github.com:Selvian-ai/forge.git"
 KEY_NAME="$NODE_NAME-github"
 
 if [ -z "$NODE_NAME" ]; then
