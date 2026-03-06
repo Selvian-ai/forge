@@ -1,0 +1,52 @@
+---
+description: Universal conventions for the forge repository (NixOS cluster)
+alwaysApply: true
+---
+
+# Forge Repo — Core Rules
+
+## Project Structure
+
+```
+forge/
+└── nixos-cluster/
+    ├── configuration/     # Nix flake + host configs
+    │   ├── flake.nix      # Main flake (nixpkgs 24.05)
+    │   ├── common/        # Shared NixOS modules
+    │   └── hosts/         # Per-host configs (vega, arcturus, rigel)
+    ├── kubernetes/        # K8s manifests (metallb, longhorn, harbor, cloudflared)
+    ├── moonkit/           # Python cluster tooling (Poetry, sops)
+    ├── server-scripts/    # Shell scripts for node management
+    ├── roadmap/           # Phase planning docs
+    └── docs/              # Cluster documentation
+```
+
+## Tooling
+
+### NixOS
+- Rebuild: `sudo nixos-rebuild switch --update-input keys --flake .#<host>`
+- Hosts: `vega`, `arcturus`, `rigel`
+- Flake inputs: nixpkgs 24.05 (stable), nixos-unstable, nixos-generators
+
+### Moonkit (Python)
+Uses **Poetry** (not uv) for dependency management.
+- `poetry run pytest` — run tests
+- `poetry run python ./moonkit/generate_secrets_yaml.py` — generate secrets
+- Secrets encrypted with `sops`
+
+### Kubernetes
+- K3s cluster with Longhorn storage, MetalLB, Harbor registry
+- Cloudflared for tunnel access
+
+## Conventions
+
+- **Never commit secrets** — `secrets.yaml` is in `.gitignore`
+- SSH keys managed via 1Password (`server-scripts/keys_and_config.sh`)
+- New nodes: use `server-scripts/add-node.sh`
+- Infrastructure changes: test in dev shell first (`nix develop`)
+
+## Subagents
+
+This workspace shares subagents defined in `trading/.cursor/agents/`. Key roles:
+- **infrastructure-engineer** — AWS/GCP infra, Terraform, CI/CD, deployments
+- **ceo** — organizational structure, cross-repo coordination

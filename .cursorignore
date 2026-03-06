@@ -1,0 +1,13 @@
+# Secrets (should never be indexed)
+secrets.yaml
+**/secrets/
+
+# Dependencies
+.venv/
+__pycache__/
+
+# Lock files
+poetry.lock
+
+# OS
+.DS_Store
