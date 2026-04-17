@@ -1,0 +1,27 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "/Users/claudio/code/selvian/forge/nixos-cluster/moonkit/moonkit/__init__.py",
+      "source_location": "L1",
+      "id": "users_claudio_code_selvian_forge_nixos_cluster_moonkit_moonkit_init_py",
+      "community": 0,
+      "norm_label": "__init__.py"
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "/Users/claudio/code/selvian/forge/nixos-cluster/moonkit/tests/__init__.py",
+      "source_location": "L1",
+      "id": "users_claudio_code_selvian_forge_nixos_cluster_moonkit_tests_init_py",
+      "community": 1,
+      "norm_label": "__init__.py"
+    }
+  ],
+  "links": [],
+  "hyperedges": []
+}
