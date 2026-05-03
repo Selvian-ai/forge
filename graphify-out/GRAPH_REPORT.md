@@ -1,7 +1,7 @@
-# Graph Report - /Users/claudio/code/selvian/forge  (2026-04-17)
+# Graph Report - /Users/claudio/code/selvian/forge  (2026-05-02)
 
 ## Corpus Check
-- 2 files · ~1,761 words
+- 2 files · ~1,865 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
